@@ -9,17 +9,26 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.berkay.ykssorudeposu.databinding.ActivityMainBinding
 import com.berkay.ykssorudeposu.databinding.ActivityQuestionBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var questionList : ArrayList<Question>
     private lateinit var questionAdapter : QuestionAdapter
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        MobileAds.initialize(this) {} //MainActivityBanner add ca-app-pub-9960894908590411/1143786979
+
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         questionList = ArrayList<Question>()
         questionAdapter = QuestionAdapter(questionList)
